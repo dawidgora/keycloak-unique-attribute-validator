@@ -9,16 +9,16 @@
     <version>0.1.0-SNAPSHOT</version>
     <name>Unique Attribute Validator Provider</name>
     <description>Keycloak user-profile validator that enforces application-level attribute uniqueness.</description>
-    <url>https://github.com/dawidgora/keycloak-unique-attribute-validator-provider</url>
+    <url>https://github.com/dawidgora/keycloak-unique-attribute-validator</url>
 
     <distributionManagement>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/dawidgora/keycloak-unique-attribute-validator-provider</url>
+            <url>https://maven.pkg.github.com/dawidgora/keycloak-unique-attribute-validator</url>
         </repository>
         <snapshotRepository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/dawidgora/keycloak-unique-attribute-validator-provider</url>
+            <url>https://maven.pkg.github.com/dawidgora/keycloak-unique-attribute-validator</url>
         </snapshotRepository>
     </distributionManagement>
 
