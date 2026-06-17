@@ -35,7 +35,7 @@ public class UniqueAttributeValidatorProvider extends AbstractStringValidator im
         UserModel currentUser = (UserModel) context.getAttributes().get(UserModel.class.getName());
 
         if (!isAttributeUnique(attributeValue, attributeName, session, currentUser)) {
-            context.addError(new ValidationError(ID, attributeName, MESSAGE_ATTRIBUTE_NOT_UNIQUE + '.' + attributeName));
+            context.addError(new ValidationError(ID, attributeName, MESSAGE_ATTRIBUTE_NOT_UNIQUE, attributeName));
         }
     }
 
