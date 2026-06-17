@@ -1,1 +1,26 @@
-/.idea
+/.idea/
+/.vscode/
+**/.classpath
+**/.project
+**/.settings/
+*.iml
+*.ipr
+*.iws
+*.log
+
+# Maven / Java build outputs
+**/target/
+**/bin/
+**/build/
+**/out/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# IDE / OS artifacts
+.DS_Store
+Thumbs.db
+
+.slim/deepwork/

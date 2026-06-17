@@ -1,5 +1,3 @@
-version: "3"
-
 volumes:
   keycloak-postgres:
     external: false
@@ -23,7 +21,7 @@ services:
       - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME_STRICT_HTTPS=false
     command:
-      - start --features=declarative-user-profile
+      - start
     depends_on:
       - keycloak-postgres
     ports:

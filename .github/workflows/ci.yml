@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Build with Maven
+        working-directory: unique-attribute-validator-provider
+        run: mvn -B clean verify
+
+      - name: Build demo Keycloak image
+        run: docker build .
+
+      - name: Stage CI artifact
+        run: cp unique-attribute-validator-provider/target/unique-attribute-validator-provider-*.jar unique-attribute-validator-provider.jar
+
+      - name: Upload CI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-artifact-unique-attribute-validator-provider
+          path: unique-attribute-validator-provider.jar
+          retention-days: 7

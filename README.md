@@ -1,47 +1,87 @@
-# Keycloak Unique Attribute Validator Provider
+# Keycloak Unique Attribute Validator
 
-This repository contains the Keycloak Unique Attribute Validator Provider, designed to enhance your Keycloak instance by enabling the validation of unique attributes for user profiles. Below are the steps to set up and use this provider in your Keycloak environment.
+Keycloak User Profile validator for checking that an attribute value is unique within a realm.
 
-## Prerequisites
+Validator ID: `unique-attribute`
 
-Before you begin, ensure that the `User Profile` feature is enabled in Keycloak. By default, this feature is not active. To enable it, you must start Keycloak with a specific feature flag.
+This is an application-level check. It is not a database constraint and is not race-proof.
 
-## Enabling User Profile in Keycloak
+## Install
 
-To enable the `User Profile` feature:
+Download `unique-attribute-validator-provider.jar` from the latest GitHub Release.
 
-1. Run Keycloak with the `--features=declarative-user-profile` flag. This setting is already included in the `docker-compose` file provided with this repository.
-2. Start the project using the following command:
+Copy it to Keycloak's providers directory:
 
 ```bash
-docker compose up -d
+cp unique-attribute-validator-provider.jar /opt/keycloak/providers/
+/opt/keycloak/bin/kc.sh build
 ```
 
-3. Once the Keycloak instance is up and running, navigate to the admin console.
+Restart Keycloak.
 
-### Accessing the Admin Console
+## Configure
 
-1. Go to the Keycloak admin console.
-2. Log in using the credentials:
-- **Username:** admin
-- **Password:** admin
-3. Select your realm.
+In the Keycloak admin console:
 
-### Enabling User Profile
+1. Open your realm.
+2. Go to `Realm settings` → `User profile`.
+3. Add or edit an attribute.
+4. Add validator `unique-attribute`.
 
-1. In the realm, navigate to `Realm Settings -> General`.
-2. Enable `User Profile Enabled`.
+Older Keycloak versions may require starting Keycloak with:
 
-## Configuring the Unique Attribute Validator
+```bash
+--features=declarative-user-profile
+```
 
-After enabling the User Profile feature:
+Current Keycloak versions expose User Profile in the admin console without this flag.
 
-1. Go to `Realm Settings -> User Profile`.
-2. Add your attribute to the profile.
-3. Add the validator named `unique-attribute`.
+## Build
 
-Once these steps are completed, your Keycloak instance will be configured to validate unique attributes in user profiles, using the Unique Attribute Validator Provider.
+```bash
+cd unique-attribute-validator-provider
+mvn clean verify
+```
 
-## Support
+## Local demo
 
-If you encounter any issues or have questions, please file an issue in this repository's issue tracker.
+```bash
+docker compose up --build -d
+```
+
+Keycloak runs at <http://localhost:8822>.
+
+Default admin credentials:
+
+- username: `admin`
+- password: `admin`
+
+## Artifacts
+
+- GitHub Releases: stable JARs for users.
+- GitHub Actions artifacts: temporary JARs from CI runs for testing.
+- GitHub Packages: Maven release packages and commit-versioned dev packages.
+
+Release tags use SemVer without a `v` prefix, for example `1.2.3`.
+
+### Dev package pipeline
+
+Runs on pushes to `main` and manual dispatch.
+
+It sets the Maven version to `0.1.0-dev.<commit>.<run>`, builds the provider, verifies it can be added to the Keycloak image, then publishes the package to GitHub Packages.
+
+Use dev packages only for development/testing.
+
+### Release pipeline
+
+Runs when a SemVer tag is pushed, for example `1.2.3`.
+
+It sets the Maven version from the tag, builds the provider, verifies it can be added to the Keycloak image, publishes the Maven package to GitHub Packages, and attaches `unique-attribute-validator-provider.jar` to the GitHub Release.
+
+Use GitHub Releases for normal installs.
+
+## Compatibility
+
+This project is currently built against Keycloak `26.6.3`.
+
+The validator uses Keycloak's internal validator SPI. Keycloak updates should be tested before release.

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "dependencyDashboard": true,
+  "prConcurrentLimit": 3,
+  "branchConcurrentLimit": 5,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update the Keycloak Docker image version used for local development.",
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": ["ARG KEYCLOAK_VERSION=(?<currentValue>[^\\s]+)"],
+      "depNameTemplate": "quay.io/keycloak/keycloak",
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["maven"],
+      "matchPackageNames": ["org.keycloak:keycloak-common", "org.keycloak:keycloak-core", "org.keycloak:keycloak-server-spi", "org.keycloak:keycloak-server-spi-private"],
+      "groupName": "Keycloak runtime",
+      "automerge": false
+    },
+    {
+      "matchPackageNames": ["quay.io/keycloak/keycloak"],
+      "groupName": "Keycloak runtime",
+      "automerge": false
+    }
+  ]
+}

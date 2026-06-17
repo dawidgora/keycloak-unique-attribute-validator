@@ -1,0 +1,45 @@
+name: Dev Package
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  dev-package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+
+      - name: Set version from commit
+        working-directory: unique-attribute-validator-provider
+        run: |
+          short_sha="${GITHUB_SHA::12}"
+          mvn -B versions:set -DnewVersion="0.1.0-dev.${short_sha}.${GITHUB_RUN_NUMBER}" -DgenerateBackupPoms=false
+
+      - name: Verify dev package
+        working-directory: unique-attribute-validator-provider
+        run: mvn -B clean verify
+
+      - name: Validate demo Keycloak image
+        run: docker build .
+
+      - name: Publish dev package
+        working-directory: unique-attribute-validator-provider
+        run: mvn -B deploy -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
