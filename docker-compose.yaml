@@ -29,7 +29,7 @@ services:
       - '9990:9990'
 
   keycloak-postgres:
-    image: postgres
+    image: postgres:17
     container_name: keycloak-postgres
     volumes:
       - keycloak-postgres:/var/lib/postgresql/data
