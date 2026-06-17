@@ -6,6 +6,9 @@ import org.keycloak.models.UserModel;
 import org.keycloak.models.UserProvider;
 import org.keycloak.provider.ConfiguredProvider;
 import org.keycloak.provider.ProviderConfigProperty;
+import org.keycloak.userprofile.AttributeContext;
+import org.keycloak.userprofile.AttributeMetadata;
+import org.keycloak.userprofile.UserProfileAttributeValidationContext;
 import org.keycloak.validate.AbstractStringValidator;
 import org.keycloak.validate.ValidationContext;
 import org.keycloak.validate.ValidationError;
@@ -35,7 +38,8 @@ public class UniqueAttributeValidatorProvider extends AbstractStringValidator im
         UserModel currentUser = (UserModel) context.getAttributes().get(UserModel.class.getName());
 
         if (!isAttributeUnique(attributeValue, attributeName, session, currentUser)) {
-            context.addError(new ValidationError(ID, attributeName, MESSAGE_ATTRIBUTE_NOT_UNIQUE, attributeName));
+            String displayName = getAttributeDisplayName(context);
+            context.addError(new ValidationError(ID, attributeName, MESSAGE_ATTRIBUTE_NOT_UNIQUE, displayName));
         }
     }
 
@@ -77,5 +81,16 @@ public class UniqueAttributeValidatorProvider extends AbstractStringValidator im
             return session.getContext().getClient().getRealm();
         }
         return null;
+    }
+
+    String getAttributeDisplayName(ValidationContext context) {
+        UserProfileAttributeValidationContext upContext = UserProfileAttributeValidationContext.from(context);
+        AttributeContext attrContext = upContext.getAttributeContext();
+        AttributeMetadata metadata = attrContext.getMetadata();
+        String displayName = metadata.getAttributeDisplayName();
+        if (displayName != null && !displayName.isEmpty()) {
+            return displayName;
+        }
+        return "${profile.attributes." + metadata.getName() + "}";
     }
 }
