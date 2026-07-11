@@ -8,7 +8,9 @@
     {
       "customType": "regex",
       "description": "Update the Keycloak Docker image version used for local development.",
-      "fileMatch": ["^Dockerfile$"],
+      "managerFilePatterns": [
+        "/^Dockerfile$/"
+      ],
       "matchStrings": ["ARG KEYCLOAK_VERSION=(?<currentValue>[^\\s]+)"],
       "depNameTemplate": "quay.io/keycloak/keycloak",
       "datasourceTemplate": "docker"
