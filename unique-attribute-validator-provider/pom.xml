@@ -27,7 +27,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <jboss.logging.version>3.4.1.Final</jboss.logging.version>
+        <jboss.logging.version>3.6.3.Final</jboss.logging.version>
         <keycloak.version>26.6.3</keycloak.version>
     </properties>
 
