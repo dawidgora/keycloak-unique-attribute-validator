@@ -7,11 +7,15 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update the Keycloak Docker image version used for local development.",
+      "description": "Update the Keycloak version in the Dockerfile and README.",
       "managerFilePatterns": [
-        "/^Dockerfile$/"
+        "/^Dockerfile$/",
+        "/^README\\.md$/"
       ],
-      "matchStrings": ["ARG KEYCLOAK_VERSION=(?<currentValue>[^\\s]+)"],
+      "matchStrings": [
+        "ARG KEYCLOAK_VERSION=(?<currentValue>[^\\s]+)",
+        "Keycloak `(?<currentValue>[^`]+)`"
+      ],
       "depNameTemplate": "quay.io/keycloak/keycloak",
       "datasourceTemplate": "docker"
     }
