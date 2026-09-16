@@ -24,7 +24,7 @@
     {
       "matchDatasources": ["adoptium-java"],
       "matchPackageNames": ["java-jdk"],
-      "allowedVersions": "^(17|21)\\."
+      "allowedVersions": ">=17.0.0 <22"
     },
     {
       "matchManagers": ["maven"],
