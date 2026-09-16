@@ -18,6 +18,11 @@
   ],
   "packageRules": [
     {
+      "matchDatasources": ["adoptium-java"],
+      "matchPackageNames": ["java-jdk"],
+      "allowedVersions": "^(17|21)\\."
+    },
+    {
       "matchManagers": ["maven"],
       "matchPackageNames": ["org.keycloak:keycloak-common", "org.keycloak:keycloak-core", "org.keycloak:keycloak-server-spi", "org.keycloak:keycloak-server-spi-private"],
       "groupName": "Keycloak runtime",
