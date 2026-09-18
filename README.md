@@ -85,3 +85,7 @@ Use GitHub Releases for normal installs.
 This project is currently built against Keycloak `26.7.4`.
 
 The validator uses Keycloak's internal validator SPI. Keycloak updates should be tested before release.
+
+## Support
+
+[<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" alt="Buy Me A Coffee">](https://buymeacoffee.com/dawidgora)
