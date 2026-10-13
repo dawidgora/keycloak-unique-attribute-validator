@@ -1,5 +1,5 @@
 ARG MAVEN_IMAGE=maven:3.10.0-eclipse-temurin-17
-ARG KEYCLOAK_VERSION=26.8.0
+ARG KEYCLOAK_VERSION=26.8.1
 
 # unique-attribute-validator-provider
 FROM ${MAVEN_IMAGE} AS unique-attribute-validator-provider
