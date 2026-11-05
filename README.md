@@ -82,7 +82,7 @@ Use GitHub Releases for normal installs.
 
 ## Compatibility
 
-This project is currently built against Keycloak `26.8.1`.
+This project is currently built against Keycloak `26.8.2`.
 
 The validator uses Keycloak's internal validator SPI. Keycloak updates should be tested before release.
 
