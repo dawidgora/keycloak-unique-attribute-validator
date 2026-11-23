@@ -1,4 +1,4 @@
-ARG MAVEN_IMAGE=maven:3.10.0-eclipse-temurin-17
+ARG MAVEN_IMAGE=maven:3.10.2-eclipse-temurin-17
 ARG KEYCLOAK_VERSION=26.8.1
 
 # unique-attribute-validator-provider
